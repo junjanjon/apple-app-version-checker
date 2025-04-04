@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as fs from 'fs';
 import * as cheerio from 'cheerio';
 import yargs from 'yargs';
 
