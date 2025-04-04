@@ -1,18 +1,16 @@
 import axios from 'axios';
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
+import yargs from 'yargs';
 
-async function fetchAppInfo(countryCode: string, appId: string): Promise<void> {
+async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean): Promise<void> {
   const url = `https://itunes.apple.com/${countryCode}/app/id${appId}?mt=8`;
 
   try {
-    console.log(`Fetching URL: ${url}`); // Debug log
+    if (verbose) console.log(`Fetching URL: ${url}`); // Debug log
     const response = await axios.get(url);
-    console.log('Response received:', response.status); // Debug log
+    if (verbose) console.log('Response received:', response.status); // Debug log
     const html = response.data;
-
-    // Save the response to a file for debugging
-    fs.writeFileSync('response.html', html);
 
     // Parse the HTML using cheerio
     const $ = cheerio.load(html);
@@ -40,7 +38,23 @@ async function fetchAppInfo(countryCode: string, appId: string): Promise<void> {
   }
 }
 
-// Example usage
+// Parse command-line arguments
+const argv = yargs(process.argv.slice(2))
+  .option('verbose', {
+    alias: 'v',
+    type: 'boolean',
+    description: 'Enable verbose logging',
+    default: false,
+  })
+  .option('appId', {
+    alias: 'a',
+    type: 'string',
+    description: 'The App Store app ID',
+    demandOption: true, // Make appId a required argument
+  })
+  .help()
+  .parseSync();
+
 const countryCode = 'jp';
-const appId = '1663423521';
-fetchAppInfo(countryCode, appId);
+const appId = argv.appId; // Use appId from command-line arguments
+fetchAppInfo(countryCode, appId, argv.verbose);
