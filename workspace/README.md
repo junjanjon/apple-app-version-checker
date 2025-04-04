@@ -6,6 +6,7 @@ This is a command-line tool written in TypeScript to fetch iOS app information, 
 - Fetch app name, version, and release date from the App Store.
 - Supports verbose logging for debugging.
 - Accepts the App Store app ID as a command-line argument.
+- Supports JSON output format for app information.
 
 ## Requirements
 - Node.js (v14 or later)
@@ -28,17 +29,23 @@ This is a command-line tool written in TypeScript to fetch iOS app information, 
 ## Usage
 Run the script with the following command:
 ```bash
-npm start -- --appId <APP_ID> [--verbose]
+npm start -- --appId <APP_ID> [--verbose] [--format json]
 ```
 
 ### Options
 - `--appId` or `-a`: The App Store app ID (required).
 - `--verbose` or `-v`: Enable verbose logging (optional).
+- `--format json` or `-f json`: Output app information in JSON format (optional).
 
 ### Example
-Fetch information for an app with ID `1663423521`:
+Fetch information for an app with ID `374254473`:
 ```bash
-npm start -- --appId 1663423521 --verbose
+npm start -- --appId 374254473 --verbose
+```
+
+Fetch information for an app with ID `374254473` and output it in JSON format:
+```bash
+npm start -- --appId 374254473 --format json
 ```
 
 ## Development
