@@ -73,11 +73,7 @@ async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean
 
     if (format === 'json')
     {
-      console.log(JSON.stringify({
-        appName,
-        appVersion,
-        releaseDate,
-      }, null, 2));
+      console.log(JSON.stringify({ appName, appVersion, releaseDate }));
     }
     else
     {
