@@ -11,8 +11,8 @@ This is a command-line tool written in TypeScript to fetch iOS app information, 
 - Supports JSON output format for app information.
 
 ## Requirements
-- Node.js (v14 or later)
-- npm (v6 or later)
+- Node.js (v23 or later)
+- npm (v10 or later)
 
 ## Installation
 1. Clone this repository:
