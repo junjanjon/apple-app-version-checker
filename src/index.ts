@@ -2,6 +2,11 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import yargs from 'yargs';
 
+
+declare const process: {
+  argv: string[];
+};
+
 // Update yargs configuration to include a format option
 const argv = yargs(process.argv.slice(2))
   .option('verbose', {
@@ -30,13 +35,21 @@ const appId = argv.appId; // Use appId from command-line arguments
 const verbose = argv.verbose;
 const format = argv.format;
 
-async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean, format?: string): Promise<void> {
+async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean, format?: string): Promise<void>
+{
   const url = `https://itunes.apple.com/${countryCode}/app/id${appId}?mt=8`;
 
-  try {
-    if (verbose) console.log(`Fetching URL: ${url}`); // Debug log
+  try
+  {
+    if (verbose)
+    {
+      console.log(`Fetching URL: ${url}`);
+    } // Debug log
     const response = await axios.get(url);
-    if (verbose) console.log('Response received:', response.status); // Debug log
+    if (verbose)
+    {
+      console.log('Response received:', response.status);
+    } // Debug log
     const html = response.data;
 
     // Parse the HTML using cheerio
@@ -45,7 +58,8 @@ async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean
     // Extract app name from JSON-LD script
     const jsonLdScript = $('script[name="schema:software-application"]').html();
     let appName = 'Unknown';
-    if (jsonLdScript) {
+    if (jsonLdScript)
+    {
       const jsonData = JSON.parse(jsonLdScript);
       appName = jsonData.name || 'Unknown';
     }
@@ -57,18 +71,23 @@ async function fetchAppInfo(countryCode: string, appId: string, verbose: boolean
     // Extract release date
     const releaseDate = $('time[data-test-we-datetime]').attr('datetime') || 'Unknown';
 
-    if (format === 'json') {
+    if (format === 'json')
+    {
       console.log(JSON.stringify({
         appName,
         appVersion,
         releaseDate,
       }, null, 2));
-    } else {
+    }
+    else
+    {
       console.log(`App Name: ${appName}`);
       console.log(`App Version: ${appVersion}`);
       console.log(`Release Date: ${releaseDate}`);
     }
-  } catch (error) {
+  }
+  catch (error)
+  {
     console.error('Error fetching app info:', error);
   }
 }
