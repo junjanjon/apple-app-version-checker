@@ -1,6 +1,8 @@
-README.md# Apple App Version Checker
+# Apple App Version Checker
 
 This is a command-line tool written in TypeScript to fetch iOS app information, including the app name, version, and release date, from the App Store.
+
+※日本ストアのみ対応
 
 ## Features
 - Fetch app name, version, and release date from the App Store.
