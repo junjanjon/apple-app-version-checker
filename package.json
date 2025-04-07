@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/index.js",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint": "eslint 'src/**/**'",
+    "lint:fix": "eslint 'src/**/**' --fix",
     "test": "jest"
   },
   "dependencies": {
